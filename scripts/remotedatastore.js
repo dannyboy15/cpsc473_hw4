@@ -20,10 +20,14 @@
   };
 
   RemoteDataStore.prototype.getAll = function(cb) {
-    $.get(this.serverUrl, function(serverResponse) {
+    $.get(this.serverUrl + "/", function(serverResponse) {
+      console.log("getAll response:");
       console.log(serverResponse);
-      cb(serverResponse);
-    });
+      serverResponse.forEach(function(item) {
+        this.data[item.emailAddress] = item.id;
+        cb(item);
+      }.bind(this));
+    }.bind(this));
   };
 
   RemoteDataStore.prototype.get = function(key, cb) {

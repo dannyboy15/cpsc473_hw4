@@ -1,4 +1,4 @@
-(function (window) {
+(function(window) {
   "use strict";
   var App = window.App || {};
   var $ = window.jQuery;
@@ -12,28 +12,28 @@
     this.serverUrl = url;
   }
 
-  RemoteDataStore.prototype.add = function (key, val) {
-    $.post(this.serverUrl, val, function (serverResponse) {
+  RemoteDataStore.prototype.add = function(key, val) {
+    $.post(this.serverUrl, val, function(serverResponse) {
       this.data[key] = serverResponse.id;
       console.log(serverResponse);
     }.bind(this));
   };
 
-  RemoteDataStore.prototype.getAll = function (cb) {
-    $.get(this.serverUrl, function (serverResponse) {
+  RemoteDataStore.prototype.getAll = function(cb) {
+    $.get(this.serverUrl, function(serverResponse) {
       console.log(serverResponse);
       cb(serverResponse);
     });
   };
 
-  RemoteDataStore.prototype.get = function (key, cb) {
-    $.get(this.serverUrl + "/" + this.data[key], function (serverResponse) {
+  RemoteDataStore.prototype.get = function(key, cb) {
+    $.get(this.serverUrl + "/" + this.data[key], function(serverResponse) {
       console.log(serverResponse);
       cb(serverResponse);
     });
   };
 
-  RemoteDataStore.prototype.remove = function (key) {
+  RemoteDataStore.prototype.remove = function(key) {
     $.ajax(this.serverUrl + "/" + this.data[key], {
       type: "DELETE"
     });
